@@ -39,9 +39,16 @@
 - `dashboard.html`: Student profile and Digital ID.
 - `admin.html`: Management panel for campus admins.
 
+## TEAM MEMBERS NAME :-
+ASHWANI KUMAR
+SAMARTH SHINDE
+ALOK MISHRA
+VEER MANI
+
 ## 🧠 AI/ML Integration
 1. **Mail Summarizer**: Found in `daily-pulse.html` (Simulated NLP Logic).
 2. **Academic Intelligence**: Found in `academic-cockpit.html` (Study Planner & Flashcard Gen).
 
 ## 🌍 Getting Started
 Simply open `index.html` in any modern web browser. All dependencies are loaded via CDN for immediate execution.
+
