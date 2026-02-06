@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Nexus | Your Smart Campus Companion</title>
+    <meta name="description"
+        content="Project Nexus - The ultimate digital ecosystem for college students. AI-powered academic cockpits, campus pulse, and more.">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Hero Section Specifics */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.1), transparent),
+                radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.1), transparent),
+                var(--background);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            z-index: 10;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to bottom, var(--text), var(--text-muted));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--surface-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Animations for grid */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i data-lucide="layers"></i>
+                Project <span>Nexus</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="daily-pulse.html">Daily Pulse</a>
+                <a href="student-exchange.html">Student Exchange</a>
+                <a href="explorers-guide.html">Explorer's Guide</a>
+                <a href="academic-cockpit.html">Academic Cockpit</a>
+                <a href="dashboard.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Dashboard</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container hero-content fade-in">
+            <h1 class="hero-title">Your Smart Campus Companion</h1>
+            <p class="hero-subtitle">
+                One platform. Endless possibilities. AI-powered. Student-centric. Seamlessly connected.
+                Experience the future of campus life with Project Nexus.
+            </p>
+            <div class="hero-btns">
+                <a href="auth.html" class="btn btn-primary">Get Started <i data-lucide="arrow-right"></i></a>
+                <a href="#features" class="btn btn-outline">Explore Features</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="container">
+        <h2 class="section-title">Everything You Need</h2>
+        <p class="section-subtitle">A unified ecosystem designed for the modern student.</p>
+
+        <div class="features-grid">
+            <!-- Mess Updates -->
+            <div class="glass feature-card reveal">
+                <div class="feature-icon"><i data-lucide="utensils"></i></div>
+                <h3>Daily Mess Updates</h3>
+                <p>Track live menu, nutrition info, and crowd levels. Rate your meals and stay informed about allergens.
+                </p>
+                <a href="daily-pulse.html" style="color: var(--accent); display: block; margin-top: 1rem;">View Menu
+                    &rarr;</a>
+            </div>
+
+            <!-- Mail Summarizer -->
+            <div class="glass feature-card reveal">
+                <div class="feature-icon"><i data-lucide="mail"></i></div>
+                <h3>AI Mail Summarizer</h3>
+                <p>Don't miss important notices. Our AI condenses long university emails into actionable summaries and
+                    deadlines.</p>
+                <a href="daily-pulse.html#ai-mail" style="color: var(--accent); display: block; margin-top: 1rem;">Try
+                    AI &rarr;</a>
+            </div>
+
+            <!-- Lost & Found -->
+            <div class="glass feature-card reveal">
+                <div class="feature-icon"><i data-lucide="search"></i></div>
+                <h3>Lost & Found</h3>
+                <p>Recover lost items or help others. AI-powered matching helps reconnect students with their
+                    belongings.</p>
+                <a href="student-exchange.html" style="color: var(--accent); display: block; margin-top: 1rem;">Explore
+                    &rarr;</a>
+            </div>
+
+            <!-- Marketplace -->
+            <div class="glass feature-card reveal">
+                <div class="feature-icon"><i data-lucide="shopping-bag"></i></div>
+                <h3>Student Marketplace</h3>
+                <p>Buy and sell textbooks, electronics, and more within your campus community. Safe, easy, and reliable.
+                </p>
+                <a href="student-exchange.html" style="color: var(--accent); display: block; margin-top: 1rem;">Start
+                    Trading &rarr;</a>
+            </div>
+
+            <!-- Cab Pooling -->
+            <div class="glass feature-card reveal">
+                <div class="feature-icon"><i data-lucide="car"></i></div>
+                <h3>Cab Pooling</h3>
+                <p>Find travel buddies for your next trip. Split fares, optimize routes, and travel safely with peers.
+                </p>
+                <a href="student-exchange.html" style="color: var(--accent); display: block; margin-top: 1rem;">Find
+                    Pool &rarr;</a>
+            </div>
+
+            <!-- Campus Map -->
+            <div class="glass feature-card reveal">
+                <div class="feature-icon"><i data-lucide="map-pin"></i></div>
+                <h3>Explorer's Guide</h3>
+                <p>Interactive maps, room finders, and nearby hub for cafes and study spots. Navigate your campus
+                    smarter.</p>
+                <a href="explorers-guide.html" style="color: var(--accent); display: block; margin-top: 1rem;">Open Map
+                    &rarr;</a>
+            </div>
+
+            <!-- Academic Cockpit -->
+            <div class="glass feature-card reveal">
+                <div class="feature-icon"><i data-lucide="graduation-cap"></i></div>
+                <h3>Academic Cockpit</h3>
+                <p>Your personalized study hub with live timetables, LMS Lite, and AI-powered study schedules.</p>
+                <a href="academic-cockpit.html" style="color: var(--accent); display: block; margin-top: 1rem;">Go to
+                    Cockpit &rarr;</a>
+            </div>
+
+            <!-- AI Study Assistant -->
+            <div class="glass feature-card reveal">
+                <div class="feature-icon"><i data-lucide="sparkles"></i></div>
+                <h3>AI Study Assistant</h3>
+                <p>Generate flashcards, practice quizzes, and get predicted exam difficulty based on your schedule.</p>
+                <a href="academic-cockpit.html#ai-study"
+                    style="color: var(--accent); display: block; margin-top: 1rem;">Boost Learning &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        style="padding: var(--space-xl) 0; background: var(--surface-light); border-top: 1px solid var(--glass-border);">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+                <div style="max-width: 300px;">
+                    <a href="index.html" class="logo">
+                        <i data-lucide="layers"></i>
+                        Project <span>Nexus</span>
+                    </a>
+                    <p style="color: var(--text-muted); margin-top: 1rem; font-size: 0.9rem;">
+                        The ultimate digital ecosystem for modern college campuses. Empowering students with AI-driven
+                        insights and features.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Quick Links</h4>
+                    <ul
+                        style="display: flex; flex-direction: column; gap: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                        <li><a href="daily-pulse.html">Daily Pulse</a></li>
+                        <li><a href="student-exchange.html">Student Exchange</a></li>
+                        <li><a href="explorers-guide.html">Explorer's Guide</a></li>
+                        <li><a href="academic-cockpit.html">Academic Cockpit</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Connect</h4>
+                    <div style="display: flex; gap: 1rem; color: var(--text-muted);">
+                        <i data-lucide="twitter"></i>
+                        <i data-lucide="instagram"></i>
+                        <i data-lucide="github"></i>
+                        <i data-lucide="mail"></i>
+                    </div>
+                </div>
+            </div>
+            <div
+                style="text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.8rem;">
+                &copy; 2026 Project Nexus. Developed for the Future.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

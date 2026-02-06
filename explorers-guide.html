@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer's Guide | Project Nexus</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .page-header {
+            padding-top: 8rem;
+            padding-bottom: 2rem;
+            background: linear-gradient(to bottom, rgba(6, 182, 212, 0.1), transparent);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 500px;
+            background: #1e293b;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .map-overlay {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .map-marker {
+            position: absolute;
+            color: var(--accent);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .map-marker:hover {
+            transform: scale(1.5);
+        }
+
+        .place-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .place-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .place-thumb {
+            width: 100%;
+            height: 160px;
+            background: var(--surface-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .vibe-tag {
+            font-size: 0.7rem;
+            background: rgba(6, 182, 212, 0.2);
+            color: var(--accent);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i data-lucide="layers"></i>
+                Project <span>Nexus</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="daily-pulse.html">Daily Pulse</a>
+                <a href="student-exchange.html">Student Exchange</a>
+                <a href="explorers-guide.html">Explorer's Guide</a>
+                <a href="academic-cockpit.html">Academic Cockpit</a>
+                <a href="auth.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="section-title" style="text-align: left;">Explorer's Guide</h1>
+            <p class="section-subtitle" style="text-align: left;">Navigate your campus and discover the best spots
+                around.</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Map Section -->
+        <section style="padding-top: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2>Interactive Campus Map</h2>
+                <div style="display: flex; gap: 1rem;">
+                    <div class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;"><i
+                            data-lucide="crosshairs"></i> Locate Me</div>
+                    <div class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;"><i
+                            data-lucide="navigation"></i> Get Directions</div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <i data-lucide="map-pin" class="map-marker" style="top: 30%; left: 45%;" title="Admin Block"></i>
+                <i data-lucide="map-pin" class="map-marker" style="top: 55%; left: 20%;" title="Hostel 4"></i>
+                <i data-lucide="map-pin" class="map-marker" style="top: 70%; left: 75%;" title="Sports Complex"></i>
+                <i data-lucide="map-pin" class="map-marker" style="top: 15%; left: 80%;" title="Main Cafeteria"></i>
+
+                <div style="text-align: center; color: var(--text-muted);">
+                    <i data-lucide="map" size="64" style="margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <p>High-Precision Campus Map Loading...</p>
+                    <small>AR Navigation Available on Mobile App</small>
+                </div>
+
+                <div class="map-overlay">
+                    <button class="btn glass" style="width: 40px; height: 40px; padding: 0;"><i
+                            data-lucide="zoom-in"></i></button>
+                    <button class="btn glass" style="width: 40px; height: 40px; padding: 0;"><i
+                            data-lucide="zoom-out"></i></button>
+                    <button class="btn glass" style="width: 40px; height: 40px; padding: 0;"><i
+                            data-lucide="layers"></i></button>
+                </div>
+            </div>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 4rem;">
+                <div class="glass" style="padding: 1.5rem; text-align: center;">
+                    <i data-lucide="search" style="margin-bottom: 0.5rem; color: var(--accent);"></i>
+                    <h4>Room Finder</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Find Lab 102, Block B</p>
+                </div>
+                <div class="glass" style="padding: 1.5rem; text-align: center;">
+                    <i data-lucide="clock" style="margin-bottom: 0.5rem; color: var(--warning);"></i>
+                    <h4>Bus Tracking</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Next Shuttle: 5 mins</p>
+                </div>
+                <div class="glass" style="padding: 1.5rem; text-align: center;">
+                    <i data-lucide="bike" style="margin-bottom: 0.5rem; color: var(--success);"></i>
+                    <h4>Bike Rentals</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">12 Bikes Available</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nearby Places -->
+        <section>
+            <h2 style="margin-bottom: 2rem;">Nearby Student Hubs</h2>
+            <div class="place-grid">
+                <!-- Cafe -->
+                <div class="glass place-card">
+                    <div class="place-thumb"><i data-lucide="coffee" size="48"></i></div>
+                    <div style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <h3>The Study Brew</h3>
+                            <span style="color: var(--warning);">⭐ 4.7</span>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Quiet cafe with
+                            dedicated study zones and high-speed WiFi.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="vibe-tag">Study Friendly</span>
+                            <span class="vibe-tag">Fast WiFi</span>
+                            <span class="vibe-tag">Vegan Options</span>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--accent);">
+                            <span><i data-lucide="map-pin" size="14"></i> 200m away</span>
+                            <span>Crowd: Moderate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hangout -->
+                <div class="glass place-card">
+                    <div class="place-thumb"><i data-lucide="users" size="48"></i></div>
+                    <div style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <h3>Campus Greens</h3>
+                            <span style="color: var(--warning);">⭐ 4.9</span>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Open air park,
+                            perfect for group meetings or a quick break.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="vibe-tag">Nature</span>
+                            <span class="vibe-tag">Chill</span>
+                            <span class="vibe-tag">Budget</span>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--accent);">
+                            <span><i data-lucide="map-pin" size="14"></i> 500m away</span>
+                            <span>Crowd: Low</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food -->
+                <div class="glass place-card">
+                    <div class="place-thumb"><i data-lucide="pizza" size="48"></i></div>
+                    <div style="padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <h3>Late Night Bites</h3>
+                            <span style="color: var(--warning);">⭐ 4.2</span>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Open till 3 AM. Best
+                            parathas and maggi on campus.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="vibe-tag">Late Night</span>
+                            <span class="vibe-tag">Cheap</span>
+                            <span class="vibe-tag">Fast</span>
+                        </div>
+                        <div
+                            style="margin-top: 1.5rem; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--accent);">
+                            <span><i data-lucide="map-pin" size="14"></i> 400m away</span>
+                            <span>Crowd: High</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

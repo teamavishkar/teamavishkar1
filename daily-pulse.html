@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Pulse | Project Nexus</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .page-header {
+            padding-top: 8rem;
+            padding-bottom: 2rem;
+            background: linear-gradient(to bottom, rgba(37, 99, 235, 0.1), transparent);
+        }
+
+        .pulse-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Mess Menu Styles */
+        .mess-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .mess-card:hover {
+            transform: scale(1.02);
+        }
+
+        .meal-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-breakfast {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .tag-lunch {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .tag-dinner {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary-light);
+        }
+
+        .dish-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .dish-info span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .crowd-indicator {
+            height: 8px;
+            width: 100px;
+            background: var(--surface-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .crowd-bar {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .crowd-low {
+            width: 30%;
+            background: var(--success);
+        }
+
+        .crowd-med {
+            width: 65%;
+            background: var(--warning);
+        }
+
+        .crowd-high {
+            width: 90%;
+            background: var(--error);
+        }
+
+        /* Mail Summarizer Styles */
+        .ai-summarizer {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            padding: 2.5rem;
+        }
+
+        .summarizer-input {
+            width: 100%;
+            height: 150px;
+            background: var(--surface);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: var(--text);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            resize: none;
+            outline: none;
+        }
+
+        .summarizer-input:focus {
+            border-color: var(--secondary);
+        }
+
+        .summary-result {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--secondary);
+            border-radius: 4px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Feeds */
+        .announcement-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .announcement-icon {
+            color: var(--accent);
+        }
+
+        @media (max-width: 992px) {
+            .pulse-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Day Selector Styles */
+        .day-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .day-tab {
+            padding: 0.5rem 1.2rem;
+            background: var(--surface-light);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border: 1px solid var(--glass-border);
+        }
+
+        .day-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+
+        .live-badge {
+            background: var(--error);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i data-lucide="layers"></i>
+                Project <span>Nexus</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="daily-pulse.html">Daily Pulse</a>
+                <a href="student-exchange.html">Student Exchange</a>
+                <a href="explorers-guide.html">Explorer's Guide</a>
+                <a href="academic-cockpit.html">Academic Cockpit</a>
+                <a href="dashboard.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="section-title" style="text-align: left;">Daily Pulse</h1>
+            <p class="section-subtitle" style="text-align: left;">Live updates from across the campus, tailored for you.
+            </p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="pulse-grid">
+            <!-- Left Column: Mess & AI -->
+            <div class="main-content">
+                <!-- Mess Section -->
+                <section id="mess-menu" style="padding-top: 0;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                        <h2 style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i data-lucide="coffee"></i> Mess Menu Dashboard
+                        </h2>
+                        <div id="live-meal-status">
+                            <!-- JS will inject live status here -->
+                        </div>
+                    </div>
+
+                    <!-- Day Selector -->
+                    <div class="day-selector">
+                        <div class="day-tab" onclick="switchDay('Mon')">Mon</div>
+                        <div class="day-tab" onclick="switchDay('Tue')">Tue</div>
+                        <div class="day-tab" onclick="switchDay('Wed')">Wed</div>
+                        <div class="day-tab" onclick="switchDay('Thu')">Thu</div>
+                        <div class="day-tab active" onclick="switchDay('Fri')">Fri (Today)</div>
+                        <div class="day-tab" onclick="switchDay('Sat')">Sat</div>
+                        <div class="day-tab" onclick="switchDay('Sun')">Sun</div>
+                    </div>
+
+                    <div class="mess-cards" id="mess-container">
+                        <!-- Breakfast -->
+                        <div class="glass mess-card" id="meal-breakfast">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span class="meal-tag tag-breakfast">Breakfast (07:30 - 09:30)</span>
+                                    <div class="live-indicator" style="display: none;"><span class="live-badge"><i
+                                                data-lucide="radio" size="12"></i> LIVE NOW</span></div>
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Crowd: <span
+                                        style="color: var(--success);">Low</span></div>
+                            </div>
+                            <div id="breakfast-content">
+                                <div class="dish-item">
+                                    <div class="dish-info">
+                                        <strong>Paneer Paratha & Curd</strong><br>
+                                        <span>320 kcal | Veg | Contains Gluten</span>
+                                    </div>
+                                    <div class="rating">⭐ 4.5</div>
+                                </div>
+                                <div class="dish-item">
+                                    <div class="dish-info">
+                                        <strong>Boiled Eggs / Sprouts</strong><br>
+                                        <span>150 kcal | Egg/Veg</span>
+                                    </div>
+                                    <div class="rating">⭐ 4.2</div>
+                                </div>
+                            </div>
+                            <div class="crowd-indicator">
+                                <div class="crowd-bar crowd-low"></div>
+                            </div>
+                        </div>
+
+                        <!-- Lunch -->
+                        <div class="glass mess-card" id="meal-lunch">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span class="meal-tag tag-lunch">Lunch (12:30 - 14:30)</span>
+                                    <div class="live-indicator" style="display: none;"><span class="live-badge"><i
+                                                data-lucide="radio" size="12"></i> LIVE NOW</span></div>
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Crowd: <span
+                                        style="color: var(--error);">High</span></div>
+                            </div>
+                            <div id="lunch-content">
+                                <div class="dish-item">
+                                    <div class="dish-info">
+                                        <strong>Jeera Rice & Dal Tadka</strong><br>
+                                        <span>450 kcal | Veg | Dairy Free</span>
+                                    </div>
+                                    <div class="rating">⭐ 4.8</div>
+                                </div>
+                                <div class="dish-item">
+                                    <div class="dish-info">
+                                        <strong>Mix Veg Sabzi</strong><br>
+                                        <span>120 kcal | Veg</span>
+                                    </div>
+                                    <div class="rating">⭐ 3.9</div>
+                                </div>
+                            </div>
+                            <div class="crowd-indicator">
+                                <div class="crowd-bar crowd-high"></div>
+                            </div>
+                        </div>
+
+                        <!-- Dinner -->
+                        <div class="glass mess-card" id="meal-dinner">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span class="meal-tag tag-dinner">Dinner (19:30 - 21:30)</span>
+                                    <div class="live-indicator" style="display: none;"><span class="live-badge"><i
+                                                data-lucide="radio" size="12"></i> LIVE NOW</span></div>
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Crowd: <span
+                                        style="color: var(--warning);">Medium</span></div>
+                            </div>
+                            <div id="dinner-content">
+                                <div class="dish-item">
+                                    <div class="dish-info">
+                                        <strong>Butter Roti & Mix Veg</strong><br>
+                                        <span>380 kcal | Veg | Contains Dairy</span>
+                                    </div>
+                                    <div class="rating">⭐ 4.6</div>
+                                </div>
+                                <div class="dish-item">
+                                    <div class="dish-info">
+                                        <strong>Paneer Butter Masala</strong><br>
+                                        <span>290 kcal | Veg | High Protein</span>
+                                    </div>
+                                    <div class="rating">⭐ 4.9</div>
+                                </div>
+                            </div>
+                            <div class="crowd-indicator">
+                                <div class="crowd-bar crowd-med"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- AI Summarizer Section -->
+                <section id="ai-mail">
+                    <div class="glass ai-summarizer">
+                        <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i data-lucide="sparkles" style="color: var(--secondary);"></i> AI Mail Summarizer
+                        </h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Paste your lengthy college email
+                            below to get an instant actionable summary.</p>
+
+                        <textarea class="summarizer-input"
+                            placeholder="Paste the email content here... (e.g., 'Dear Students, the upcoming hackathon will be held on...')"></textarea>
+
+                        <button class="btn btn-primary" onclick="summarizeMail()">
+                            <i data-lucide="cpu"></i> Summarize with AI
+                        </button>
+
+                        <div id="summary-output" class="summary-result">
+                            <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">AI Summary Result:</h4>
+                            <p id="summary-text" style="font-weight: 500; font-size: 1.1rem;"></p>
+                            <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+                                <span class="meal-tag" id="summary-cat"
+                                    style="background: rgba(124, 58, 237, 0.2); color: var(--secondary);">Category:
+                                    Event</span>
+                                <span class="meal-tag" id="summary-pri"
+                                    style="background: rgba(239, 68, 68, 0.2); color: var(--error);">Priority:
+                                    High</span>
+                                <span class="meal-tag" id="summary-deadline"
+                                    style="background: rgba(16, 185, 129, 0.2); color: var(--success);">Deadline: Oct
+                                    15</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Announcements & Feeds -->
+            <div class="sidebar">
+                <div class="glass" style="padding: 1.5rem; position: sticky; top: 100px;">
+                    <h3
+                        style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">
+                        Live Announcements
+                    </h3>
+
+                    <div class="announcement-item">
+                        <i data-lucide="bell" class="announcement-icon"></i>
+                        <div>
+                            <p><strong>Mid-Sem Results Out!</strong></p>
+                            <small class="text-muted">Portal is now open for checking grades.</small>
+                        </div>
+                    </div>
+
+                    <div class="announcement-item">
+                        <i data-lucide="wifi" class="announcement-icon"></i>
+                        <div>
+                            <p><strong>Hostel-4 WiFi Maintenance</strong></p>
+                            <small class="text-muted">Expected downtime: 10:00 PM - 12:00 AM.</small>
+                        </div>
+                    </div>
+
+                    <div class="announcement-item">
+                        <i data-lucide="cloud-rain" class="announcement-icon"></i>
+                        <div>
+                            <p><strong>Weather Alert</strong></p>
+                            <small class="text-muted">Heavy rain expected. Football match cancelled.</small>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem;">Campus Status</h4>
+                        <div style="display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.9rem;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Library Capacity</span>
+                                <span style="color: var(--warning);">75% Full</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>WiFi Status</span>
+                                <span style="color: var(--success);">Operational</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Gym Crowd</span>
+                                <span style="color: var(--success);">Low</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Menu Mock Data
+        const menuData = {
+            'Mon': { breakfast: 'Aloo Poori', lunch: 'Rajma Chawal', dinner: 'Dal Makhani' },
+            'Tue': { breakfast: 'Idli Sambhar', lunch: 'Kadahi Paneer', dinner: 'Kadhi Pakoda' },
+            'Wed': { breakfast: 'Poha & Jalebi', lunch: 'Veg Biryani', dinner: 'Aloo Gobi' },
+            'Thu': { breakfast: 'Bread Pakoda', lunch: 'Chole Bhature', dinner: 'Mix Dal' },
+            'Fri': { breakfast: 'Paneer Paratha', lunch: 'Jeera Rice & Dal', dinner: 'Paneer Butter Masala' },
+            'Sat': { breakfast: 'Pav Bhaji', lunch: 'Veg Pulav', dinner: 'Kofta Curry' },
+            'Sun': { breakfast: 'Puri Sabzi', lunch: 'Special Lunch', dinner: 'Staff Special' }
+        };
+
+        function switchDay(day) {
+            // Update UI tabs
+            document.querySelectorAll('.day-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.innerText.includes(day)) tab.classList.add('active');
+            });
+
+            // Update Content (Simplified mock update)
+            const data = menuData[day];
+            document.querySelector('#breakfast-content strong').innerText = data.breakfast;
+            document.querySelector('#lunch-content strong').innerText = data.lunch;
+            document.querySelector('#dinner-content strong').innerText = data.dinner;
+
+            // Re-run live check if it's today
+            updateLiveMeal();
+        }
+
+        function updateLiveMeal() {
+            const now = new Date();
+            const hour = now.getHours();
+            const mins = now.getMinutes();
+            const time = hour + mins / 60;
+
+            // Reset indicators
+            document.querySelectorAll('.live-indicator').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.mess-card').forEach(el => el.style.borderColor = 'var(--glass-border)');
+
+            let activeMeal = null;
+            if (time >= 7.5 && time <= 9.5) activeMeal = 'breakfast';
+            else if (time >= 12.5 && time <= 14.5) activeMeal = 'lunch';
+            else if (time >= 19.5 && time <= 21.5) activeMeal = 'dinner';
+
+            if (activeMeal) {
+                const card = document.getElementById('meal-' + activeMeal);
+                card.querySelector('.live-indicator').style.display = 'block';
+                card.style.borderColor = 'var(--primary)';
+                card.style.borderWidth = '2px';
+            }
+        }
+
+        // Initialize
+        window.onload = updateLiveMeal;
+
+        function summarizeMail() {
+            const input = document.querySelector('.summarizer-input').value;
+            const output = document.getElementById('summary-output');
+            const summaryText = document.getElementById('summary-text');
+
+            if (!input.trim()) {
+                alert('Please paste some email content first!');
+                return;
+            }
+
+            output.style.display = 'block';
+            summaryText.innerHTML = "Processing with Project Nexus AI...";
+
+            setTimeout(() => {
+                if (input.toLowerCase().includes('hackathon') || input.toLowerCase().includes('event')) {
+                    summaryText.innerHTML = "A new Hackathon event is scheduled for next Friday. Registration is mandatory by Wednesday.";
+                    document.getElementById('summary-cat').innerText = "Category: Event";
+                    document.getElementById('summary-pri').innerText = "Priority: High";
+                    document.getElementById('summary-deadline').innerText = "Deadline: Next Wed";
+                } else if (input.toLowerCase().includes('fee') || input.toLowerCase().includes('payment')) {
+                    summaryText.innerHTML = "Semester fee payment portal is open now. Late fee will be applicable after the 20th.";
+                    document.getElementById('summary-cat').innerText = "Category: Academic";
+                    document.getElementById('summary-pri').innerText = "Priority: Urgent";
+                    document.getElementById('summary-deadline').innerText = "Deadline: 20th Oct";
+                } else {
+                    summaryText.innerHTML = "General campus notice regarding administrative updates. No immediate action required.";
+                    document.getElementById('summary-cat').innerText = "Category: Notice";
+                    document.getElementById('summary-pri').innerText = "Priority: Low";
+                    document.getElementById('summary-deadline').innerText = "Deadline: N/A";
+                }
+            }, 1200);
+        }
+    </script>
+</body>
+
+</html>

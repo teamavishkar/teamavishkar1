@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Cockpit | Project Nexus</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .page-header {
+            padding-top: 8rem;
+            padding-bottom: 2rem;
+            background: linear-gradient(to bottom, rgba(30, 212, 12, 0.1), transparent);
+        }
+
+        .cockpit-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Timetable */
+        .timetable-day {
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .class-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        /* LMS */
+        .assignment-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* AI Study Assistant */
+        .ai-assistant {
+            background: linear-gradient(135deg, rgba(30, 212, 12, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .tool-card {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid var(--glass-border);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 240, 0.7), rgba(255, 255, 240, 0.95));
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+
+        .tool-card:hover::before {
+            background: linear-gradient(to bottom, rgba(37, 99, 235, 0.1), rgba(255, 255, 240, 0.95));
+        }
+
+        .tool-card * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tool-card i {
+            margin-bottom: 1.25rem;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover i {
+            transform: scale(1.1) translateY(-5px);
+        }
+
+        .tool-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .tool-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 992px) {
+            .cockpit-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i data-lucide="layers"></i>
+                Project <span>Nexus</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="daily-pulse.html">Daily Pulse</a>
+                <a href="student-exchange.html">Student Exchange</a>
+                <a href="explorers-guide.html">Explorer's Guide</a>
+                <a href="academic-cockpit.html">Academic Cockpit</a>
+                <a href="dashboard.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="section-title" style="text-align: left;">Academic Cockpit</h1>
+            <p class="section-subtitle" style="text-align: left;">Master your academics with AI-powered schedules and
+                tools.</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="cockpit-grid">
+            <!-- Sidebar: Timetable -->
+            <aside>
+                <div class="glass" style="padding: 1.5rem; position: sticky; top: 100px;">
+                    <h3 style="margin-bottom: 1.5rem;">Live Timetable</h3>
+                    <p style="font-size: 0.85rem; color: var(--accent); margin-bottom: 1.5rem;">Friday, Oct 12</p>
+
+                    <div class="timetable-day">
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">09:00 - 10:00</div>
+                        <strong><span class="class-dot" style="background: var(--primary);"></span>CS-302: OS</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-left: 1rem;">LT-2, Block B</div>
+                    </div>
+
+                    <div class="timetable-day">
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">11:30 - 12:30</div>
+                        <strong><span class="class-dot" style="background: var(--secondary);"></span>MA-201:
+                            Math</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-left: 1rem;">LT-1, Block C</div>
+                    </div>
+
+                    <div class="timetable-day" style="opacity: 0.5;">
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">01:30 - 02:30</div>
+                        <strong><span class="class-dot" style="background: var(--text-muted);"></span>Lunch
+                            Break</strong>
+                    </div>
+
+                    <div class="timetable-day">
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">03:00 - 05:00</div>
+                        <strong><span class="class-dot" style="background: var(--accent);"></span>Lab: Web Dev</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-left: 1rem;">Lab 203, Block A
+                        </div>
+                    </div>
+
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 1.5rem; font-size: 0.8rem;">
+                        <i data-lucide="download"></i> Export to Calendar
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Content: LMS & AI -->
+            <div class="main-content">
+                <!-- LMS Section -->
+                <section style="padding-top: 0;">
+                    <h2 style="margin-bottom: 1.5rem;">Learning Management</h2>
+
+                    <div class="assignment-card glass">
+                        <div>
+                            <strong>Algorithm Design HW 2</strong><br>
+                            <span style="font-size: 0.85rem; color: var(--error);">Due in: 3 Hours</span>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-outline" style="padding: 0.4rem 0.8rem;">View Brief</button>
+                            <button class="btn btn-primary" style="padding: 0.4rem 0.8rem;">Submit</button>
+                        </div>
+                    </div>
+
+                    <div class="assignment-card glass">
+                        <div>
+                            <strong>Database Mini Project</strong><br>
+                            <span style="font-size: 0.85rem; color: var(--warning);">Due in: 2 Days</span>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-outline" style="padding: 0.4rem 0.8rem;">View Brief</button>
+                            <button class="btn btn-primary" style="padding: 0.4rem 0.8rem;">Submit</button>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                        <div class="glass" style="padding: 1.5rem;">
+                            <h4>Performance Analytics</h4>
+                            <div style="margin-top: 1rem;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                    <span>Current GPA</span>
+                                    <strong>8.9 / 10</strong>
+                                </div>
+                                <div
+                                    style="height: 6px; width: 100%; background: var(--surface-light); border-radius: 3px; margin-top: 0.5rem;">
+                                    <div
+                                        style="height: 100%; width: 89%; background: var(--success); border-radius: 3px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass" style="padding: 1.5rem;">
+                            <h4>Attendance Tracker</h4>
+                            <div style="margin-top: 1rem;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                    <span>Avg. Attendance</span>
+                                    <strong style="color: var(--warning);">78%</strong>
+                                </div>
+                                <div
+                                    style="height: 6px; width: 100%; background: var(--surface-light); border-radius: 3px; margin-top: 0.5rem;">
+                                    <div
+                                        style="height: 100%; width: 78%; background: var(--warning); border-radius: 3px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Subject Repository Section -->
+                <section id="subjects">
+                    <h2 style="margin-bottom: 1.5rem;"><i data-lucide="book-open"></i> Subject Repository</h2>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div class="glass tool-card" onclick="showSubject('OS')">
+                            <strong>Operating Systems</strong>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">CS-302</p>
+                        </div>
+                        <div class="glass tool-card" onclick="showSubject('Math')">
+                            <strong>Mathematics II</strong>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">MA-201</p>
+                        </div>
+                        <div class="glass tool-card" onclick="showSubject('WebDev')">
+                            <strong>Web Development</strong>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">CS-LAB</p>
+                        </div>
+                        <div class="glass tool-card" onclick="showSubject('DBMS')">
+                            <strong>Database Systems</strong>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">CS-304</p>
+                        </div>
+                    </div>
+
+                    <div id="subject-resources" class="glass"
+                        style="display: none; padding: 1.5rem; border-left: 4px solid var(--primary);">
+                        <h4 id="resource-title" style="margin-bottom: 1rem;">Resources for Operating Systems</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div>
+                                <h5 style="color: var(--secondary); margin-bottom: 0.8rem;"><i
+                                        data-lucide="presentation" size="16"></i> PPTs & Slides</h5>
+                                <ul
+                                    style="list-style: none; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <li><a href="#" style="color: var(--text); text-decoration: none;"><i
+                                                data-lucide="file-text" size="14"></i> Unit 1: Introduction.ppt</a></li>
+                                    <li><a href="#" style="color: var(--text); text-decoration: none;"><i
+                                                data-lucide="file-text" size="14"></i> Unit 2: Process Mgmt.ppt</a></li>
+                                    <li><a href="#" style="color: var(--text); text-decoration: none;"><i
+                                                data-lucide="file-text" size="14"></i> Unit 3: Memory Mgmt.ppt</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 style="color: var(--accent); margin-bottom: 0.8rem;"><i data-lucide="file-text"
+                                        size="16"></i> Hand-Written Notes</h5>
+                                <ul
+                                    style="list-style: none; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <li><a href="#" style="color: var(--text); text-decoration: none;"><i
+                                                data-lucide="download" size="14"></i> Complete Semester Notes.pdf</a>
+                                    </li>
+                                    <li><a href="#" style="color: var(--text); text-decoration: none;"><i
+                                                data-lucide="download" size="14"></i> Last Minute Revision.pdf</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- AI Study Assistant -->
+                <section id="ai-study">
+                    <div class="ai-assistant">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                            <h2><i data-lucide="sparkles" style="color: var(--success);"></i> AI Study Intelligence</h2>
+                            <span
+                                style="font-size: 0.8rem; background: var(--success); color: white; padding: 0.2rem 0.6rem; border-radius: 20px;">v2.0
+                                Beta</span>
+                        </div>
+
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem;">
+                            <div class="glass tool-card" onclick="runAiTool('planner')"
+                                style="background-image: url('https://images.unsplash.com/photo-1506784911079-509843a74841?auto=format&fit=crop&w=400&q=80');">
+                                <i data-lucide="calendar" size="32" style="color: var(--primary);"></i>
+                                <h4>Study Planner</h4>
+                                <p>Auto-generate exam schedule</p>
+                            </div>
+                            <div class="glass tool-card" onclick="runAiTool('flashcards')"
+                                style="background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=400&q=80');">
+                                <i data-lucide="copy" size="32" style="color: var(--secondary);"></i>
+                                <h4>Flashcard Gen</h4>
+                                <p>Notes to flashcards</p>
+                            </div>
+                            <div class="glass tool-card" onclick="runAiTool('quiz-creator')"
+                                style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80');">
+                                <i data-lucide="help-circle" size="32" style="color: var(--accent);"></i>
+                                <h4>Quiz Creator</h4>
+                                <p>Turn content into quizzes</p>
+                            </div>
+                            <div class="glass tool-card" onclick="runAiTool('pyq')"
+                                style="background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=400&q=80');">
+                                <i data-lucide="history" size="32" style="color: #f472b6;"></i>
+                                <h4>PYQ Analyzer</h4>
+                                <p>Previous Year Questions</p>
+                            </div>
+                            <div class="glass tool-card" onclick="runAiTool('cgpa')"
+                                style="background-image: url('https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=400&q=80');">
+                                <i data-lucide="calculator" size="32" style="color: var(--warning);"></i>
+                                <h4>CGPA Calculator</h4>
+                                <p>SGPA & CGPA tools</p>
+                            </div>
+                        </div>
+
+                        <div id="ai-output" class="glass"
+                            style="margin-top: 2rem; padding: 1.5rem; display: none; border-left: 4px solid var(--success);">
+                            <h4 id="ai-output-title" style="margin-bottom: 0.5rem; color: var(--success);">AI Result:
+                            </h4>
+                            <div id="ai-output-content" style="font-size: 0.95rem;"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+
+        function showSubject(name) {
+            const container = document.getElementById('subject-resources');
+            const title = document.getElementById('resource-title');
+            container.style.display = 'block';
+            title.innerText = "Resources for " + (name === 'OS' ? 'Operating Systems' : name === 'Math' ? 'Mathematics II' : name === 'WebDev' ? 'Web Development' : 'Database Systems');
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function runAiTool(type) {
+            const output = document.getElementById('ai-output');
+            const title = document.getElementById('ai-output-title');
+            const content = document.getElementById('ai-output-content');
+
+            output.style.display = 'block';
+            content.innerHTML = "Project Nexus AI is processing your request...";
+
+            setTimeout(() => {
+                if (type === 'planner') {
+                    title.innerText = "AI Study Plan Generated";
+                    content.innerHTML = `
+                        <ul style="list-style: disc; margin-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                            <li><strong>Day 1-2:</strong> Focus on OS Memory Management.</li>
+                            <li><strong>Day 3:</strong> Math - Calculus review.</li>
+                            <li><strong>Day 4:</strong> Mock Quiz for Database Systems.</li>
+                        </ul>
+                    `;
+                } else if (type === 'flashcards') {
+                    title.innerText = "Flashcards Created";
+                    content.innerHTML = "Successfully converted your latest notes into 12 interactive flashcards.";
+                } else if (type === 'quiz-creator') {
+                    title.innerText = "Quiz Creator Ready";
+                    content.innerHTML = `
+                        <p>Upload your topic or paste notes to generate a custom quiz:</p>
+                        <textarea placeholder="Paste your notes here..." style="width: 100%; height: 80px; background: var(--surface-light); border: 1px solid var(--glass-border); color: var(--text); border-radius: 4px; padding: 0.5rem; margin: 1rem 0;"></textarea>
+                        <button class="btn btn-primary" style="padding: 0.4rem 0.8rem;">Generate 10 MCQs</button>
+                    `;
+                } else if (type === 'pyq') {
+                    title.innerText = "PYQ Analyzer";
+                    content.innerHTML = `
+                        <p>Showing trend for 'Operating Systems' (Last 5 Years):</p>
+                        <ul style="list-style: disc; margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Deadlocks: 15% weightage</li>
+                            <li>Memory Management: 25% weightage (High Priority)</li>
+                            <li>Scheduling Algorithms: 20% weightage</li>
+                        </ul>
+                        <button class="btn btn-outline" style="margin-top: 1rem; padding: 0.4rem 0.8rem;">Download 2023 Paper</button>
+                    `;
+                } else if (type === 'cgpa') {
+                    title.innerText = "Smart CGPA Calculator";
+                    content.innerHTML = `
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="font-size: 0.75rem; color: var(--text-muted);">Previous CGPA</label>
+                                    <input type="number" id="prev-cgpa" placeholder="e.g. 8.5" style="width: 100%; padding: 0.4rem; background: var(--surface-light); border: 1px solid var(--glass-border); color: var(--text); border-radius: 4px;">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.75rem; color: var(--text-muted);">Total Credits Earned</label>
+                                    <input type="number" id="prev-credits" placeholder="e.g. 60" style="width: 100%; padding: 0.4rem; background: var(--surface-light); border: 1px solid var(--glass-border); color: var(--text); border-radius: 4px;">
+                                </div>
+                            </div>
+                            <p style="font-weight: 600; font-size: 0.85rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">Current Semester Subjects:</p>
+                            <div id="cgpa-rows" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <input type="number" placeholder="Credits" class="cgpa-credit" style="width: 80px; padding: 0.4rem; background: var(--surface-light); border: 1px solid var(--glass-border); color: var(--text); border-radius: 4px;">
+                                    <select class="cgpa-grade" style="flex: 1; padding: 0.4rem; background: var(--surface-light); border: 1px solid var(--glass-border); color: var(--text); border-radius: 4px;">
+                                        <option value="10">O (10)</option>
+                                        <option value="9">A+ (9)</option>
+                                        <option value="8">A (8)</option>
+                                        <option value="7">B+ (7)</option>
+                                        <option value="6">B (6)</option>
+                                        <option value="5">C (5)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" style="padding: 0.4rem; font-size: 0.8rem;" onclick="addCgpaRow()">+ Add Subject</button>
+                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); display: flex; flex-direction: column; gap: 0.5rem;">
+                                <button class="btn btn-primary" onclick="calculateFullCGPA()" style="padding: 0.5rem 1rem; width: 100%;">Calculate Cumulative CGPA</button>
+                                <div id="cgpa-result-detailed" style="margin-top: 0.5rem; text-align: center;">
+                                    <div id="sgpa-val" style="font-size: 1rem; color: var(--accent);"></div>
+                                    <div id="cgpa-val" style="font-size: 1.4rem; font-weight: 800; color: var(--success); margin-top: 0.5rem;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }, 800);
+        }
+
+        function addCgpaRow() {
+            const rows = document.getElementById('cgpa-rows');
+            const newRow = document.createElement('div');
+            newRow.style.display = 'flex';
+            newRow.style.gap = '0.5rem';
+            newRow.innerHTML = `
+                <input type="number" placeholder="Credits" class="cgpa-credit" style="width: 80px; padding: 0.4rem; background: var(--surface-light); border: 1px solid var(--glass-border); color: var(--text); border-radius: 4px;">
+                <select class="cgpa-grade" style="flex: 1; padding: 0.4rem; background: var(--surface-light); border: 1px solid var(--glass-border); color: var(--text); border-radius: 4px;">
+                    <option value="10">O (10)</option>
+                    <option value="9">A+ (9)</option>
+                    <option value="8">A (8)</option>
+                    <option value="7">B+ (7)</option>
+                    <option value="6">B (6)</option>
+                    <option value="5">C (5)</option>
+                </select>
+            `;
+            rows.appendChild(newRow);
+        }
+
+        function calculateFullCGPA() {
+            const credits = document.querySelectorAll('.cgpa-credit');
+            const grades = document.querySelectorAll('.cgpa-grade');
+            const prevCgpa = parseFloat(document.getElementById('prev-cgpa').value) || 0;
+            const prevCredits = parseFloat(document.getElementById('prev-credits').value) || 0;
+
+            let currentPoints = 0;
+            let currentCredits = 0;
+
+            credits.forEach((credit, index) => {
+                const c = parseFloat(credit.value);
+                const g = parseFloat(grades[index].value);
+                if (!isNaN(c)) {
+                    currentPoints += (c * g);
+                    currentCredits += c;
+                }
+            });
+
+            const sgpa = currentCredits > 0 ? (currentPoints / currentCredits).toFixed(2) : "0.00";
+
+            const totalPoints = (prevCgpa * prevCredits) + currentPoints;
+            const totalCredits = prevCredits + currentCredits;
+            const finalCgpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "0.00";
+
+            document.getElementById('sgpa-val').innerText = "Semester SGPA: " + sgpa;
+            document.getElementById('cgpa-val').innerText = "New Cumulative CGPA: " + finalCgpa;
+        }
+    </script>
+</body>
+
+</html>

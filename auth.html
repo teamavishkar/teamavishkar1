@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup | Project Nexus</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.1), transparent),
+                radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.1), transparent),
+                var(--background);
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 450px;
+            padding: 3rem;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .form-toggle {
+            display: flex;
+            margin-bottom: 2.5rem;
+            background: var(--surface);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--surface-light);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            margin-bottom: 1rem;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+        }
+
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .social-btn:hover {
+            background: var(--glass-border);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="glass auth-card">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <a href="index.html" class="logo" style="justify-content: center; font-size: 2rem;">
+                    <i data-lucide="layers"></i>
+                    Nexus
+                </a>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">The student portal access</p>
+            </div>
+
+            <div class="form-toggle">
+                <div class="toggle-btn active" id="login-toggle" onclick="toggleAuth('login')">Login</div>
+                <div class="toggle-btn" id="signup-toggle" onclick="toggleAuth('signup')">Sign Up</div>
+            </div>
+
+            <form id="login-form" onsubmit="handleAuth(event, 'login')">
+                <input type="email" placeholder="University Email" required>
+                <input type="password" placeholder="Password" required>
+                <div style="text-align: right; margin-bottom: 1.5rem;">
+                    <a href="#" style="font-size: 0.8rem; color: var(--accent);">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">Login to
+                    Dashboard</button>
+            </form>
+
+            <form id="signup-form" style="display: none;" onsubmit="handleAuth(event, 'signup')">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="University Email" required>
+                <input type="text" placeholder="Student ID / Roll No" required>
+                <input type="password" placeholder="Create Password" required>
+                <label
+                    style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <input type="checkbox" style="width: auto; margin-top: 3px;" required>
+                    I agree to the Terms of Service and Privacy Policy.
+                </label>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">Create
+                    Account</button>
+            </form>
+
+            <div style="margin-top: 2rem; text-align: center; position: relative;">
+                <span
+                    style="background: var(--surface); padding: 0 1rem; position: relative; z-index: 1; font-size: 0.8rem; color: var(--text-muted);">OR
+                    CONTINUE WITH</span>
+                <div
+                    style="position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: var(--glass-border);">
+                </div>
+            </div>
+
+            <div class="social-login">
+                <div class="social-btn"><i data-lucide="mail"></i> Google</div>
+                <div class="social-btn"><i data-lucide="github"></i> GitHub</div>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);">
+                Are you a faculty member? <a href="#" style="color: var(--accent);">Admin Login</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleAuth(type) {
+            document.getElementById('login-form').style.display = type === 'login' ? 'block' : 'none';
+            document.getElementById('signup-form').style.display = type === 'signup' ? 'block' : 'none';
+            document.getElementById('login-toggle').classList.toggle('active', type === 'login');
+            document.getElementById('signup-toggle').classList.toggle('active', type === 'signup');
+        }
+
+        function handleAuth(e, type) {
+            e.preventDefault();
+            // Simulate Authentication
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Verifying Credentials...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Set login session
+                localStorage.setItem('isLoggedIn', 'true');
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

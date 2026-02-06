@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Project Nexus</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            min-height: 100vh;
+        }
+
+        .aside {
+            background: #0f172a;
+            border-right: 1px solid var(--glass-border);
+            padding: 2rem;
+        }
+
+        .main {
+            padding: 3rem;
+        }
+
+        .table-glass {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .table-glass th,
+        .table-glass td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <aside class="aside">
+            <h2 class="logo">Nexus <span>Admin</span></h2>
+            <nav style="margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; position: static;">
+                <a href="#" class="sidebar-link active"><i data-lucide="bar-chart"></i> Analytics</a>
+                <a href="#" class="sidebar-link"><i data-lucide="users"></i> User Mgmt</a>
+                <a href="#" class="sidebar-link"><i data-lucide="coffee"></i> Mess Config</a>
+                <a href="#" class="sidebar-link"><i data-lucide="megaphone"></i> Notices</a>
+                <a href="#" class="sidebar-link"><i data-lucide="shield-check"></i> Approvals</a>
+            </nav>
+        </aside>
+
+        <main class="main">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+                <h1>Admin Command Center</h1>
+                <div class="btn btn-primary">Publish Global Notice</div>
+            </header>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem;">
+                <div class="glass" style="padding: 1.5rem;">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Daily active students</p>
+                    <h2 style="color: var(--accent);">4,281</h2>
+                </div>
+                <div class="glass" style="padding: 1.5rem;">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Pending Marketplace Approvals</p>
+                    <h2 style="color: var(--warning);">12</h2>
+                </div>
+                <div class="glass" style="padding: 1.5rem;">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">System Health</p>
+                    <h2 style="color: var(--success);">Optimal</h2>
+                </div>
+                <div class="glass" style="padding: 1.5rem;">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Emergency Alerts</p>
+                    <h2 style="color: var(--error);">0</h2>
+                </div>
+            </div>
+
+            <div class="glass" style="padding: 2rem;">
+                <h3>Recent Marketplace Submissions</h3>
+                <table class="table-glass">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Item</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rahul Sharma</td>
+                            <td>Canon EOS 80D</td>
+                            <td>Electronics</td>
+                            <td><span style="color: var(--warning);">Pending AI Check</span></td>
+                            <td><button class="btn btn-outline"
+                                    style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Review</button></td>
+                        </tr>
+                        <tr>
+                            <td>Priya Das</td>
+                            <td>Dorm Lamp</td>
+                            <td>Furniture</td>
+                            <td><span style="color: var(--success);">Approved</span></td>
+                            <td><button class="btn btn-outline"
+                                    style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Manage</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
