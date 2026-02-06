@@ -40,10 +40,10 @@
 - `admin.html`: Management panel for campus admins.
 
 ## TEAM MEMBERS NAME :-
-ASHWANI KUMAR
-SAMARTH SHINDE
-ALOK MISHRA
-VEER MANI
+1.ASHWANI KUMAR.
+2.SAMARTH SHINDE.
+3.ALOK MISHRA.
+4.VEER MANI.
 
 ## 🧠 AI/ML Integration
 1. **Mail Summarizer**: Found in `daily-pulse.html` (Simulated NLP Logic).
@@ -51,4 +51,5 @@ VEER MANI
 
 ## 🌍 Getting Started
 Simply open `index.html` in any modern web browser. All dependencies are loaded via CDN for immediate execution.
+
 
